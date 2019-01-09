@@ -2,6 +2,7 @@ import markdown
 from django.shortcuts import render, get_object_or_404
 
 from blog.models import Post, Category
+from comments.forms import CommentForm
 
 
 def index(request):
@@ -21,7 +22,16 @@ def detail(request, pk):
                                                            'markdown.extensions.codehilite',
                                                            'markdown.extensions.toc',
                                                            })
-    return render(request, 'blog/detail.html', context={'post0': post0})
+
+    # 记得在顶部导入 CommentForm
+    form = CommentForm()
+    # 获取这篇 post 下的全部评论
+    comment_list = post0.comment_set.all()
+    # 将文章、表单、以及文章下的评论列表作为模板变量传给 detail.html 模板，以便渲染相应数据
+    context = {'post0': post0,
+               'form': form,
+               'comment_list': comment_list}
+    return render(request, 'blog/detail.html', context=context)
 
 
 def archives(request, year, month):

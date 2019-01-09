@@ -5,6 +5,7 @@
       <option name="ignoredIdentifiers">
         <list>
           <option value="blog.views.post_set" />
+          <option value="comments.forms.*" />
         </list>
       </option>
     </inspection_tool>
