@@ -15,14 +15,14 @@ register = template.Library()
 
 # 最新文章模板标签
 @register.simple_tag
-def get_recent_post(num=2):
+def get_recent_posts(num=2):
     return Post.objects.all().order_by('created_time')[:num]
 
 
 # 归档模板标签
 @register.simple_tag
 def archives():
-    return Post.objects.dates('create_time', 'month', order="DESC")
+    return Post.objects.dates('created_time', 'month', order="DESC")
 
 
 # 分类模板标签
