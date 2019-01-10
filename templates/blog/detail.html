@@ -13,8 +13,8 @@
                                 <span class="post-date"><a href="#"><time class="entry-date"
                                                                           datetime="{{ post0.created_time }}">{{ post0.created_time }}</time></a></span>
                                 <span class="post-author"><a href="#">{{ post0.author }}</a></span>
-                                <span class="comments-link"><a href="#">4 评论</a></span>
-                                <span class="views-count"><a href="#">588 阅读</a></span>
+                                <span class="comments-link"><a href="{{ post0.get_absolute_url }}">{{ post0.comment_set.count }} 评论</a></span>
+                                <span class="views-count"><a href="{{ post0.get_absolute_url }}">{{ post0.views }} 阅读</a></span>
                             </div>
 
                         </header>
@@ -81,16 +81,4 @@
             </div>
         </div>
     </div>
-    <footer id="site-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="copyright">&copy 2017 - Collect from <a href="http://test.crm.hipac.cn/index.html"
-                                                                      target="_blank" title="hipac">yangtuo</a>
-                        - Modified by <a href="https://github.com/buer1990/Myblog" title="我的博客" target="_blank">我的博客仓库</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
 {% endblock main %}

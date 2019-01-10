@@ -18,4 +18,4 @@ class Comment(models.Model):
     post = models.ForeignKey('blog.Post', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.text[:1]
+        return self.text[:3]

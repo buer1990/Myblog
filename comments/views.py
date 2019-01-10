@@ -37,7 +37,7 @@ def post_comment(request, post_pk):
             # 因为 Post 和 Comment 是 ForeignKey 关联的，
             # 因此使用 post.comment_set.all() 反向查询全部评论。
             # 具体请看下面的讲解。
-            comment_list = post.comment_set.all()
+            comment_list = post.comment_set.all()  # 查出来文章下全部评论
             context = {'post': post,
                        'form': form,
                        'comment_list': comment_list}
