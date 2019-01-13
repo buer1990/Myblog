@@ -1,4 +1,5 @@
 import markdown
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -30,7 +31,7 @@ class IndexView(ListView):
     template_name = 'blog/index.html'
     context_object_name = 'post_list'
     # 指定 paginate_by 属性后开启分页功能，其值代表每一页包含多少篇文章
-    paginate_by = 2
+    paginate_by = 4
 
 
 # def detail(request, pk):
@@ -160,3 +161,16 @@ def listing(request):
         posts = paginator.page(paginator.num_pages)
 
     return render(request, 'blog/index.html', {'posts': posts})
+
+
+def search(request):
+    q = request.GET.get('q')
+    error_msg = ''
+    if not q:
+        error_msg = '请输入关键字'
+        return render(request, 'blog/index.html', {'error_msg': error_msg})
+    # 双下划线，带出某modle 下属性的方法,其中方法前的'i'表示不区分大小写
+    # 并且可以看到，有外联关系表结构会出现外联属性，like:author__post__body__contains
+    post_list = Post.objects.filter(Q(title__icontains=q) | Q(body__icontains=q))
+    return render(request, 'blog/index.html', {'error_msg': error_msg,
+                                               'post_list': post_list})
